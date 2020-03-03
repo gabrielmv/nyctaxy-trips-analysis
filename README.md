@@ -3,6 +3,18 @@
 ## Local Mode
 ### Setup
 
+To create the infrastructure you will need terraform. YOu can install it:
+
+- MacOS
+
+`mkdir ~/terraform`\
+`wget https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_darwin_amd64.zip`\
+`unzip terraform_0.12.21_darwin_amd64.zip`\
+`mv terraform ~/terraform`\
+`rm terraform_0.12.21_darwin_amd64.zip`\
+`echo 'export PATH="$PATH:~/terraform"' >> .bash_profile`\
+`source .bash_profile`
+
 You will need Python 3.7. You can install it with Conda:
 
 https://docs.conda.io/en/latest/miniconda.html
@@ -27,11 +39,12 @@ Install requirements:
 
 `pip install -r requirements.txt`
 
-Download Data:
+Download Data and create infrastructure:
 
-`./get_data.sh`
+`./setup.sh`
 
 ### Run
+
 The analysis run on Jupyter Notebook:
 
 `jupyter notebook`
