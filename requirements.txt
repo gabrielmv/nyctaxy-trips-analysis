@@ -1,0 +1,4 @@
+jupyter
+pyspark==2.4.4
+plotly>=4.5.2
+pandas>=1.0.1
