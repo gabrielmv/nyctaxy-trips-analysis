@@ -19,4 +19,3 @@
   terraform plan
   terraform apply
 )
-
