@@ -74,6 +74,17 @@ resource "aws_instance" "producer" {
   key_name = "datasprint"
   security_groups = ["${aws_security_group.ingress-all-test.id}"]
   subnet_id = "${aws_subnet.subnet-uno.id}"
+
+  user_data = <<-EOF
+    #!/bin/bash
+    apt upgrade -y
+    apt install python3-pip -y
+    apt install python3 --upgrade -y
+    pip3 install awscli --upgrade
+    pip3 install boto3"
+  EOF
+
+
   tags   = {
     Name = "datasprint"
   }
