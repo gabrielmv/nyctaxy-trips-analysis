@@ -1,8 +1,3 @@
-provider "aws" {
-  profile = "default"
-  region  = "us-east-1"
-}
-
 resource "aws_s3_bucket" "datasprint_bucket" {
   bucket = "datasprint-test"
   acl    = "private"
@@ -92,7 +87,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "producer" {
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
-  key_name      = "datasprint_tech_test.pem"
+  key_name      = "datasprint_tech_test"
 
   tags   = {
     Name = "datasprint-test"
