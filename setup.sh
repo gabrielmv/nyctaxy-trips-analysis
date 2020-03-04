@@ -10,6 +10,15 @@
   wget https://s3.amazonaws.com/data-sprints-eng-test/data-payment_lookup-csv.csv
 )
 
+# Create ECR repository and push kinesys_provider
+aws create-repository --repository-name "datasprint"
+(
+  cd streaming || exit
+  docker build . -t datasprint
+  aws ecr get-login-password | docker login --username AWS --password-stdin 635255901326.dkr.ecr.us-east-1.amazonaws.com/datasprint
+  docker tag datasprint:latest 635255901326.dkr.ecr.us-east-1.amazonaws.com/datasprint:latest
+  docker push 635255901326.dkr.ecr.us-east-1.amazonaws.com/datasprint:latestatest
+)
 
 # Create Infrastructure
 (
