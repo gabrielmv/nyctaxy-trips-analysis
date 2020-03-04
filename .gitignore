@@ -1,3 +1,4 @@
 data/*
 *.pdf
 .ipynb_checkpoints
+*.pem
