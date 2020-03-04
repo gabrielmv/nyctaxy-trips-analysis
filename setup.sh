@@ -14,10 +14,10 @@
 aws create-repository --repository-name "datasprint"
 (
   cd streaming || exit
-  docker build . -t datasprint
+  docker build . -t datasprint --build-arg aws_access_key_id=${TF_VAR_aws_access_key_id} --build-arg aws_secret_access_key=${TF_VAR_aws_secret_access_key}
   aws ecr get-login-password | docker login --username AWS --password-stdin 635255901326.dkr.ecr.us-east-1.amazonaws.com/datasprint
   docker tag datasprint:latest 635255901326.dkr.ecr.us-east-1.amazonaws.com/datasprint:latest
-  docker push 635255901326.dkr.ecr.us-east-1.amazonaws.com/datasprint:latestatest
+  docker push 635255901326.dkr.ecr.us-east-1.amazonaws.com/datasprint:latest
 )
 
 # Create Infrastructure
