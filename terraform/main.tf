@@ -1,8 +1,3 @@
-provider "aws" {
-  profile = "default"
-  region  = "us-east-1"
-}
-
 resource "aws_s3_bucket" "datasprint_bucket" {
   bucket = "datasprint-test"
   acl    = "private"
@@ -73,29 +68,25 @@ resource "aws_s3_bucket_object" "nyctaxi-trips-2012" {
   ]
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
 resource "aws_instance" "producer" {
-  ami           = "${data.aws_ami.ubuntu.id}"
+  ami = "ami-046842448f9e74e7d"
   instance_type = "t2.micro"
-  key_name      = "datasprint_tech_test.pem"
+  key_name = "datasprint"
+  security_groups = ["${aws_security_group.ingress-all-test.id}"]
+  subnet_id = "${aws_subnet.subnet-uno.id}"
+
+  user_data = <<-EOF
+    #!/bin/bash
+    apt upgrade -y
+    apt install python3-pip -y
+    apt install python3 --upgrade -y
+    pip3 install awscli --upgrade
+    pip3 install boto3"
+  EOF
+
 
   tags   = {
-    Name = "datasprint-test"
+    Name = "datasprint"
   }
 }
 

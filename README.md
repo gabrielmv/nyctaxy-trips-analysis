@@ -3,17 +3,19 @@
 ## Local Mode
 ### Setup
 
-To create the infrastructure you will need terraform. YOu can install it:
+To create the infrastructure you will need terraform. You can install it:
 
-- MacOS
+https://learn.hashicorp.com/terraform/getting-started/install.html
 
-`mkdir ~/terraform`\
-`wget https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_darwin_amd64.zip`\
-`unzip terraform_0.12.21_darwin_amd64.zip`\
-`mv terraform ~/terraform`\
-`rm terraform_0.12.21_darwin_amd64.zip`\
-`echo 'export PATH="$PATH:~/terraform"' >> .bash_profile`\
-`source .bash_profile`
+Create a bucket to store the terraform state
+For the same purpose create a DynamoDB table named `terraform-lock` with a primary partition key named `LockID` 
+of type string.
+
+export the appropriate environment variables:
+
+`export TF_VAR_aws_region=us-east-1`\
+`export TF_VAR_aws_access_key_id=<>`\
+`export TF_VAR_aws_secret_access_key=<>`
 
 You will need Python 3.7. You can install it with Conda:
 
@@ -38,6 +40,10 @@ Also, for Spark you need Java 8. You can install it with the following commands:
 Install requirements: 
 
 `pip install -r requirements.txt`
+
+To deploy docker is needed:
+
+ 
 
 Download Data and create infrastructure:
 

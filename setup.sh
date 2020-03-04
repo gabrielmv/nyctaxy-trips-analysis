@@ -10,12 +10,14 @@
   wget https://s3.amazonaws.com/data-sprints-eng-test/data-payment_lookup-csv.csv
 )
 
-
 # Create Infrastructure
 (
   cd terraform || exit
-  terraform init
-  terraform refresh
-  terraform plan
-  terraform apply
+  terraform init -lock=false
+  terraform refresh -lock=false
+  terraform plan -lock=false
+  terraform apply -lock=false
 )
+
+# Remote Script
+ssh -i "datasprint.pem" ubuntu@54.89.70.149 'bash -s' < remote.sh
