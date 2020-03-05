@@ -16,8 +16,13 @@
   terraform init -lock=false
   terraform refresh -lock=false
   terraform plan -lock=false
-  terraform apply -lock=false
+  terraform apply -lock=false -auto-approve
 )
 
+public_ip="$(python scripts/ec2_ip.py)"
+
 # Remote Script
-ssh -i "datasprint.pem" ubuntu@54.89.70.149 'bash -s' < remote.sh
+ssh -i "datasprint.pem" -o 'StrictHostKeyChecking no' ubuntu@${public_ip} 'mkdir -p ~/.aws'
+scp -r -i "datasprint.pem" -o 'StrictHostKeyChecking no' ~/.aws/config ubuntu@${public_ip}:~/.aws/config
+scp -r -i "datasprint.pem" -o 'StrictHostKeyChecking no' ~/.aws/credentials ubuntu@${public_ip}:~/.aws/credentials
+ssh -i "datasprint.pem" -o 'StrictHostKeyChecking no' ubuntu@${public_ip} 'bash -s' < remote.sh
