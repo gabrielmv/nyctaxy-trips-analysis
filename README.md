@@ -41,11 +41,8 @@ Install requirements:
 
 `pip install -r requirements.txt`
 
-To deploy docker is needed:
 
- 
-
-Download Data and create infrastructure:
+Download Data, create infrastructure and run Kinesis Producer:
 
 `./setup.sh`
 
