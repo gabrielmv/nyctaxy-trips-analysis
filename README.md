@@ -42,9 +42,13 @@ Install requirements:
 `pip install -r requirements.txt`
 
 
-Download Data, create infrastructure and run Kinesis Producer:
+Download Data, create infrastructure and run EMR Cluster:
 
-`./setup.sh`
+`bash setup.sh`
+
+After thar run the script below to run the kinesis producer on EC2
+
+`bash setup_producer.sh`
 
 ### Run
 
@@ -52,4 +56,14 @@ The analysis run on Jupyter Notebook:
 
 `jupyter notebook`
 
-The notebook `explorarion.ipynb` contains exploratory analysis of the nyctaxi-trips dataset.
+**Notebooks**
+
+- The notebook `exploration.ipynb` contains exploratory analysis of the nyctaxi-trips dataset.
+- The notebook `analysis_local.ipynb` contains the analysis of the nyctaxi-trips dataset.
+- The notebook `analysis_remote.ipynb` contains the analysis of the nyctaxi-trips dataset to run on the cloud.
+
+**Kinesis Consumer**
+
+Run the python script to run the kinesis consumer:
+
+`python streaming/kinesis_consumer.py`
