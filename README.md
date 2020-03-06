@@ -67,3 +67,5 @@ The analysis run on Jupyter Notebook:
 Run the python script to run the kinesis consumer:
 
 `python streaming/kinesis_consumer.py`
+
+The Script Outputs the passenger count and the total fare revenue per vendor_id
