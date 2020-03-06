@@ -99,3 +99,60 @@ resource "aws_kinesis_stream" "datasprint_stream" {
     Environment = "dev"
   }
 }
+
+resource "aws_emr_cluster" "cluster" {
+  name           = "datasprint_emr"
+  release_label  = "emr-5.29.0"
+  applications   = [
+    "Hadoop",
+    "Ganglia",
+    "Spark",
+    "Hive",
+//    "Zeppelin",
+//    "Pig",
+//    "Hue",
+//    "JupyterHub",
+    "Livy"
+  ]
+
+  termination_protection            = false
+  keep_job_flow_alive_when_no_steps = true
+
+  ec2_attributes {
+    key_name                          = "datasprint"
+    subnet_id                         = "${aws_subnet.subnet-uno.id}"
+    emr_managed_master_security_group = "${aws_security_group.emr_master.id}"
+    emr_managed_slave_security_group  = "${aws_security_group.emr_slave.id}"
+    instance_profile                  = "${aws_iam_instance_profile.emr_ec2_instance_profile.arn}"
+  }
+
+  master_instance_group {
+    instance_type = "m4.large"
+
+    ebs_config {
+      size                 = "20"
+      type                 = "gp2"
+      volumes_per_instance = 1
+    }
+  }
+
+  core_instance_group {
+    instance_type = "m4.large"
+    instance_count = 1
+
+    ebs_config {
+      size                 = "20"
+      type                 = "gp2"
+      volumes_per_instance = 1
+    }
+  }
+
+  bootstrap_action {
+    path = "s3://elasticmapreduce/bootstrap-actions/run-if"
+    name = "runif"
+    args = ["instance.isMaster=true", "echo running on master node"]
+  }
+
+  log_uri      = "s3://aws-logs-635255901326-us-east-1/elasticmapreduce/"
+  service_role = "${aws_iam_role.emr_service_role.arn}"
+}
