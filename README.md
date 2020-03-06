@@ -77,6 +77,9 @@ The Script Outputs the passenger count and the total fare revenue per vendor_id
 
 ## Issues
 
-I Could not get EMR working using terraform, so as emergencial measure I used aws-cli to get it up and running
+I Could not get EMR working using terraform, so as emergencial measure I used aws-cli to get it up and running.
 
-The streaming pipeline does not generate a graphic visualization. it only outputs the results on the terminal. 
+The streaming pipeline does not generate a graphic visualization. it only outputs the results on the terminal.
+
+The Map visualization only uses 500 records, plotting the full length of records was really slow and the difference in 
+the visualization was not impactful.
