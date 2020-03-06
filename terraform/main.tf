@@ -24,7 +24,7 @@ resource "aws_s3_bucket_object" "payment_lookup" {
   source     = "../data/data-payment_lookup-csv.csv"
 
   depends_on = [
-    aws_s3_bucket.datasprint_bucket,
+    aws_s3_bucket.datasprint_bucket
   ]
 }
 
@@ -34,7 +34,7 @@ resource "aws_s3_bucket_object" "nyctaxi-trips-2009" {
   source     = "../data/data-sample_data-nyctaxi-trips-2009-json_corrigido.json"
 
   depends_on = [
-    aws_s3_bucket.datasprint_bucket,
+    aws_s3_bucket.datasprint_bucket
   ]
 }
 
@@ -44,7 +44,7 @@ resource "aws_s3_bucket_object" "nyctaxi-trips-2010" {
   source     = "../data/data-sample_data-nyctaxi-trips-2010-json_corrigido.json"
 
   depends_on = [
-    aws_s3_bucket.datasprint_bucket,
+    aws_s3_bucket.datasprint_bucket
   ]
 }
 
@@ -54,7 +54,7 @@ resource "aws_s3_bucket_object" "nyctaxi-trips-2011" {
   source     = "../data/data-sample_data-nyctaxi-trips-2011-json_corrigido.json"
 
   depends_on = [
-    aws_s3_bucket.datasprint_bucket,
+    aws_s3_bucket.datasprint_bucket
   ]
 }
 
@@ -64,18 +64,18 @@ resource "aws_s3_bucket_object" "nyctaxi-trips-2012" {
   source     = "../data/data-sample_data-nyctaxi-trips-2012-json_corrigido.json"
 
   depends_on = [
-    aws_s3_bucket.datasprint_bucket,
+    aws_s3_bucket.datasprint_bucket
   ]
 }
 
 resource "aws_instance" "producer" {
-  ami = "ami-046842448f9e74e7d"
-  instance_type = "t2.micro"
-  key_name = "datasprint"
+  ami             = "ami-046842448f9e74e7d"
+  instance_type   = "t2.micro"
+  key_name        = "datasprint"
   security_groups = ["${aws_security_group.ingress-all-test.id}"]
-  subnet_id = "${aws_subnet.subnet-uno.id}"
+  subnet_id       = "${aws_subnet.subnet-uno.id}"
 
-  user_data = <<-EOF
+  user_data       = <<-EOF
     #!/bin/bash
     apt upgrade -y
     apt install python3-pip -y
@@ -85,16 +85,16 @@ resource "aws_instance" "producer" {
   EOF
 
 
-  tags   = {
-    Name = "datasprint"
+  tags           = {
+    Name         = "datasprint"
   }
 }
 
 resource "aws_kinesis_stream" "datasprint_stream" {
-  name             = "ny-taxi-trips"
-  shard_count      = 1
+  name          = "ny-taxi-trips"
+  shard_count   = 1
 
-  tags = {
+  tags          = {
     Name        = "datasprint-test"
     Environment = "dev"
   }
