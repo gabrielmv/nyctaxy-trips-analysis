@@ -1,6 +1,9 @@
 # NYC Taxi Trips Analysis
 
-## Local Mode
+## AWS Cloud
+
+Create a key pair on AWS EC2 console called datasprint and put the datasprint.pem file on the project root folder
+
 ### Setup
 
 To create the infrastructure you will need terraform. You can install it:
@@ -61,6 +64,8 @@ The analysis run on Jupyter Notebook:
 - The notebook `exploration.ipynb` contains exploratory analysis of the nyctaxi-trips dataset.
 - The notebook `analysis_local.ipynb` contains the analysis of the nyctaxi-trips dataset.
 - The notebook `analysis_remote.ipynb` contains the analysis of the nyctaxi-trips dataset to run on the cloud.
+
+You can run the `analysis_local.ipynb` locally.
 
 **Kinesis Consumer**
 
